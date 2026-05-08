@@ -35,6 +35,7 @@ async function initFirebase() {
       if (activeSection === 'calendario') renderCalendario(document.getElementById('giornataFilter')?.value || '');
       if (activeSection === 'classifica') renderClassifica();
       if (activeSection === 'analisi') renderAnalisi();
+      if (activeSection === 'grafici') renderGrafici();
       if (activeSection === 'aggiorna') renderAggiorna();
     });
 
@@ -395,6 +396,231 @@ function renderAggiorna() {
   });
 }
 
+// ===== GRAFICI =====
+let chartInstances = {};
+
+function distruggiGrafici() {
+  Object.values(chartInstances).forEach(c => c.destroy());
+  chartInstances = {};
+}
+
+function renderGrafici() {
+  distruggiGrafici();
+  const container = document.getElementById('graficiContainer');
+  container.innerHTML = '';
+
+  const COLORI = {
+    'Juventus': { border: '#1a1a1a', bg: 'rgba(26,26,26,0.15)' },
+    'Roma':     { border: '#8B0000', bg: 'rgba(139,0,0,0.15)' },
+    'Napoli':   { border: '#1E90FF', bg: 'rgba(30,144,255,0.15)' },
+    'Milan':    { border: '#AC0000', bg: 'rgba(172,0,0,0.15)' },
+  };
+  const CLASSI = { 'Juventus': 'juve', 'Roma': 'roma', 'Napoli': 'napoli', 'Milan': 'milan' };
+
+  const sorted = [...appData.teams].sort((a, b) => getPuntiAttuali(b) - getPuntiAttuali(a));
+
+  // --- STAT CARDS ---
+  const statRow = document.createElement('div');
+  statRow.className = 'chart-stat-row';
+  sorted.forEach(team => {
+    const pt = getPuntiAttuali(team);
+    const ptMax = getPuntiMax(team);
+    const cls = CLASSI[team.name] || '';
+    statRow.innerHTML += `
+      <div class="chart-stat ${cls}">
+        <div class="chart-stat-val">${pt}</div>
+        <div class="chart-stat-name">${team.name}</div>
+        <div class="chart-stat-label">max ${ptMax} pt</div>
+      </div>`;
+  });
+  container.appendChild(statRow);
+
+  // --- RIGA 2 GRAFICI: Line + Doughnut ---
+  const grid = document.createElement('div');
+  grid.className = 'grafici-grid';
+
+  // GRAFICO LINEA — andamento punti per giornata
+  const lineCard = document.createElement('div');
+  lineCard.className = 'chart-card';
+  lineCard.innerHTML = `
+    <div class="chart-title">📈 Andamento punti <span class="chart-subtitle">per giornata</span></div>
+    <div class="chart-wrap"><canvas id="chartLine"></canvas></div>
+  `;
+  grid.appendChild(lineCard);
+
+  // GRAFICO TORTA — probabilità Champions
+  const pieCard = document.createElement('div');
+  pieCard.className = 'chart-card';
+  pieCard.innerHTML = `
+    <div class="chart-title">🏆 Probabilità Champions <span class="chart-subtitle">stima</span></div>
+    <div class="chart-wrap"><canvas id="chartDoughnut"></canvas></div>
+    <div class="chart-legend" id="legendDoughnut"></div>
+  `;
+  grid.appendChild(pieCard);
+
+  container.appendChild(grid);
+
+  // --- GRAFICO BARRE: punti attuali vs max ---
+  const barCard = document.createElement('div');
+  barCard.className = 'chart-card-full grafici-grid-full';
+  barCard.innerHTML = `
+    <div class="chart-title">📊 Punti attuali vs massimo raggiungibile</div>
+    <div class="chart-wrap-tall"><canvas id="chartBar"></canvas></div>
+  `;
+  container.appendChild(barCard);
+
+  // --- RENDER CHARTS ---
+
+  // LINE CHART
+  const giornate = ['Inizio', 'G36', 'G37', 'G38'];
+  const lineDatasets = appData.teams.map(team => {
+    const puntiBase = team.punti;
+    let acc = puntiBase;
+    const data = [puntiBase];
+    for (const g of [36, 37, 38]) {
+      const r = getRisultato(team.name, g);
+      if (r !== null) { acc += r; data.push(acc); }
+      else { data.push(null); }
+    }
+    return {
+      label: team.name,
+      data,
+      borderColor: COLORI[team.name].border,
+      backgroundColor: COLORI[team.name].bg,
+      borderWidth: 2.5,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      tension: 0.3,
+      fill: false,
+      spanGaps: false,
+    };
+  });
+
+  chartInstances.line = new Chart(document.getElementById('chartLine'), {
+    type: 'line',
+    data: { labels: giornate, datasets: lineDatasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y !== null ? ctx.parsed.y + ' pt' : 'n.d.'}`
+          }
+        }
+      },
+      scales: {
+        y: {
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { font: { family: 'DM Sans', size: 11 } },
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { family: 'DM Sans', size: 11 } }
+        }
+      }
+    }
+  });
+
+  // DOUGHNUT — stima probabilità Champions (basata su punti attuali + max raggiungibile)
+  // Formula semplice: più sei vicino al max e più punti hai, più alta la % stimata
+  const probRaw = appData.teams.map(team => {
+    const pt = getPuntiAttuali(team);
+    const max = getPuntiMax(team);
+    // peso = punti attuali * 0.6 + max * 0.4
+    return Math.max(0, pt * 0.6 + max * 0.4);
+  });
+  const totProb = probRaw.reduce((a, b) => a + b, 0);
+  const probPct = probRaw.map(v => Math.round((v / totProb) * 100));
+
+  chartInstances.doughnut = new Chart(document.getElementById('chartDoughnut'), {
+    type: 'doughnut',
+    data: {
+      labels: appData.teams.map(t => t.name),
+      datasets: [{
+        data: probPct,
+        backgroundColor: appData.teams.map(t => COLORI[t.name].border),
+        borderColor: '#fff',
+        borderWidth: 3,
+        hoverOffset: 8,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '62%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+        }
+      }
+    }
+  });
+
+  // legenda custom doughnut
+  const legendEl = document.getElementById('legendDoughnut');
+  appData.teams.forEach((team, i) => {
+    legendEl.innerHTML += `
+      <div class="chart-legend-item">
+        <div class="chart-legend-dot" style="background:${COLORI[team.name].border}"></div>
+        ${team.name} <strong>${probPct[i]}%</strong>
+      </div>`;
+  });
+
+  // BAR CHART — attuali vs max
+  chartInstances.bar = new Chart(document.getElementById('chartBar'), {
+    type: 'bar',
+    data: {
+      labels: sorted.map(t => t.name),
+      datasets: [
+        {
+          label: 'Punti attuali',
+          data: sorted.map(t => getPuntiAttuali(t)),
+          backgroundColor: sorted.map(t => COLORI[t.name].border),
+          borderRadius: 6,
+          borderSkipped: false,
+        },
+        {
+          label: 'Punti max raggiungibili',
+          data: sorted.map(t => getPuntiMax(t)),
+          backgroundColor: sorted.map(t => COLORI[t.name].bg),
+          borderColor: sorted.map(t => COLORI[t.name].border),
+          borderWidth: 1.5,
+          borderRadius: 6,
+          borderSkipped: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { font: { family: 'DM Sans', size: 11 }, boxWidth: 12, padding: 16 }
+        },
+        tooltip: {
+          callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y} pt` }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          min: Math.min(...appData.teams.map(t => getPuntiAttuali(t))) - 5,
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { font: { family: 'DM Sans', size: 11 } }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { family: 'Barlow Condensed', size: 13, weight: '700' } }
+        }
+      }
+    }
+  });
+}
+
+
 function mostraToast(msg) {
   let t = document.getElementById('toast');
   if (!t) {
@@ -420,6 +646,7 @@ function switchSection(sectionId) {
   if (sectionId === 'calendario') renderCalendario(document.getElementById('giornataFilter')?.value || '');
   if (sectionId === 'classifica') renderClassifica();
   if (sectionId === 'analisi') renderAnalisi();
+  if (sectionId === 'grafici') renderGrafici();
   if (sectionId === 'aggiorna') renderAggiorna();
 }
 
