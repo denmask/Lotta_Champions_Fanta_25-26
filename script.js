@@ -1,19 +1,15 @@
 let appData = null;
 
 // ========== FIREBASE CONFIG ==========
-// Incolla qui la tua config Firebase dopo averla creata
-// Leggi il README per istruzioni passo-passo
-const FIREBASE_CONFIG = null; // sostituisci con il tuo oggetto config
-// Esempio:
-// const FIREBASE_CONFIG = {
-//   apiKey: "AIza...",
-//   authDomain: "fanta-champions.firebaseapp.com",
-//   databaseURL: "https://fanta-champions-default-rtdb.firebaseio.com",
-//   projectId: "fanta-champions",
-//   storageBucket: "fanta-champions.appspot.com",
-//   messagingSenderId: "123456789",
-//   appId: "1:123456789:web:abc123"
-// };
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAXmwA_YQXl-xTvHVwMlkS0TH1MjPQH9fI",
+  authDomain: "fanta-lotta-champions.firebaseapp.com",
+  databaseURL: "https://fanta-lotta-champions-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "fanta-lotta-champions",
+  storageBucket: "fanta-lotta-champions.firebasestorage.app",
+  messagingSenderId: "349390204519",
+  appId: "1:349390204519:web:1a0b4017f532d430352ec2"
+};
 
 let firebaseDB = null;
 let firebaseRef = null;
@@ -35,7 +31,6 @@ async function initFirebase() {
     // Ascolta aggiornamenti in tempo reale
     firebaseOnValue(firebaseRef(firebaseDB, 'risultati'), (snapshot) => {
       risultatiCache = snapshot.val() || {};
-      // Ricarica la sezione attiva
       const activeSection = document.querySelector('.section.active')?.id;
       if (activeSection === 'calendario') renderCalendario(document.getElementById('giornataFilter')?.value || '');
       if (activeSection === 'classifica') renderClassifica();
@@ -109,7 +104,7 @@ function teamClass(name) {
 
 function renderStandingsStrip(container) {
   const sorted = [...appData.teams].sort((a, b) => getPuntiAttuali(b) - getPuntiAttuali(a));
-  const html = sorted.map((team, i) => {
+  const html = sorted.map((team) => {
     const pos = team.posizione;
     return `
       <div class="standing-card pos-${pos}">
@@ -139,11 +134,7 @@ function renderCalendario(giornataFiltro) {
   const giornate = [36, 37, 38];
   const giornateToShow = giornataFiltro ? [parseInt(giornataFiltro)] : giornate;
 
-  const emojiMap = {
-    36: '⚡',
-    37: '🔒',
-    38: '🏁'
-  };
+  const emojiMap = { 36: '⚡', 37: '🔒', 38: '🏁' };
 
   giornateToShow.forEach(g => {
     const block = document.createElement('div');
@@ -202,7 +193,6 @@ function renderClassifica() {
 
   const sorted = [...appData.teams].sort((a, b) => getPuntiAttuali(b) - getPuntiAttuali(a));
 
-  // assegna status narrativo
   function getStatus(team, rank) {
     if (rank <= 1) return { label: '⭐ In testa', cls: 'favorita' };
     if (rank <= 2) return { label: '🟡 In lotta', cls: 'in-lotta' };
@@ -319,7 +309,7 @@ function renderAnalisi() {
   const riepilogo = document.createElement('div');
   riepilogo.style.cssText = 'margin-top:20px;background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 12px rgba(28,32,60,0.08);';
   riepilogo.innerHTML = `
-    <div style="font-family:Syne,sans-serif;font-weight:700;font-size:1rem;margin-bottom:10px;color:#2c3e8c;">🎯 Scenario decisivo</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;margin-bottom:10px;color:#2c3e8c;">🎯 Scenario decisivo</div>
     <p style="font-size:0.85rem;color:#555977;line-height:1.7;">
       Tre squadre a <strong>53 punti</strong>, una a <strong>49</strong>. 
       In palio ci sono 9 punti max a testa — due entreranno in Champions, due no.
@@ -400,7 +390,6 @@ function renderAggiorna() {
       btn.textContent = '💾 Salva risultati';
       btn.disabled = false;
       mostraToast('✅ Risultati salvati!');
-      // ricarica le sezioni per aggiornare i punti
       renderCalendario(document.getElementById('giornataFilter')?.value || '');
     });
   });
@@ -428,7 +417,6 @@ function switchSection(sectionId) {
 
   document.querySelectorAll(`[data-section="${sectionId}"]`).forEach(b => b.classList.add('active'));
 
-  // render sezione
   if (sectionId === 'calendario') renderCalendario(document.getElementById('giornataFilter')?.value || '');
   if (sectionId === 'classifica') renderClassifica();
   if (sectionId === 'analisi') renderAnalisi();
@@ -444,18 +432,14 @@ async function init() {
     return;
   }
 
-  // Inizializza Firebase (se configurato)
   const firebaseOk = await initFirebase();
   if (!firebaseOk) {
-    // Carica da localStorage
     risultatiCache = caricaRisultatiSalvati();
   }
-
 
   document.querySelectorAll('.nav-pill').forEach(btn => {
     btn.addEventListener('click', () => {
       switchSection(btn.getAttribute('data-section'));
-      // chiudi sidebar se aperta
       chiudiSidebar();
     });
   });
@@ -486,10 +470,10 @@ async function init() {
   }
   window.chiudiSidebar = chiudiSidebar;
 
-
   document.getElementById('giornataFilter').addEventListener('change', (e) => {
     renderCalendario(e.target.value);
   });
+
   renderCalendario('');
 }
 
