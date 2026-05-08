@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fanta Champions 2025/26 🏆</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">⚽ Navigazione</span>
+      <button class="sidebar-close" id="sidebarClose">✕</button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="sidebar-link active" data-section="calendario">📅 Calendario</a>
+      <a href="#" class="sidebar-link" data-section="classifica">🏆 Classifica</a>
+      <a href="#" class="sidebar-link" data-section="analisi">🔍 Analisi</a>
+      <a href="#" class="sidebar-link" data-section="aggiorna">✏️ Aggiorna Risultati</a>
+    </nav>
+    <div class="sidebar-info">
+      <p>Giornate rimaste: <strong>3</strong></p>
+      <p>In palio: <strong>9 pt</strong></p>
+    </div>
+  </aside>
+
+  <header class="header">
+    <div class="header-inner">
+      <button class="hamburger" id="hamburger" aria-label="Apri menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="header-title">
+        <h1>Fanta Champions</h1>
+        <p>Stagione 2025/26 — Ultime 3 Giornate</p>
+      </div>
+      <div class="header-badge" id="syncBadge" title="Sincronizzazione locale">🏆</div>
+    </div>
+    <nav class="topnav">
+      <button class="nav-pill active" data-section="calendario">📅 Calendario</button>
+      <button class="nav-pill" data-section="classifica">🏆 Classifica</button>
+      <button class="nav-pill" data-section="analisi">🔍 Analisi</button>
+      <button class="nav-pill" data-section="aggiorna">✏️ Risultati</button>
+    </nav>
+  </header>
+
+  <main class="main">
+
+    <section class="section active" id="calendario">
+      <div class="section-head">
+        <h2>📅 Calendario a confronto</h2>
+        <div class="filter-wrap">
+          <label for="giornataFilter">Giornata:</label>
+          <select id="giornataFilter" class="filter-select">
+            <option value="">Tutte</option>
+            <option value="36">Giornata 36</option>
+            <option value="37">Giornata 37</option>
+            <option value="38">Giornata 38</option>
+          </select>
+        </div>
+      </div>
+      <div id="calendarioContainer"></div>
+    </section>
+    <section class="section" id="classifica">
+      <div class="section-head">
+        <h2>🏆 Classifica attuale</h2>
+      </div>
+      <div id="classificaContainer"></div>
+    </section>
+
+    <section class="section" id="analisi">
+      <div class="section-head">
+        <h2>🔍 Analisi scenari</h2>
+      </div>
+      <div id="analisiContainer"></div>
+    </section>
+
+    <section class="section" id="aggiorna">
+      <div class="section-head">
+        <h2>✏️ Aggiorna risultati</h2>
+        <p class="section-sub">Inserisci i punti fanta per ogni partita giocata</p>
+      </div>
+      <div id="aggiornaContainer"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Fanta Champions 2025/26 · Stagione memorabile · Tutto si decide ora ⚽</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

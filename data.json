@@ -1,0 +1,170 @@
+{
+  "stagione": "2025-2026",
+  "descrizione": "Lotta Champions Fanta — Ultime 3 Giornate",
+  "teams": [
+    {
+      "id": 1,
+      "name": "Juventus",
+      "manager": "Denis Mascherin",
+      "punti": 53,
+      "posizione": 3,
+      "colore": "#000000",
+      "logo": "images/juventus.png",
+      "calendario": [
+        {
+          "giornata": 36,
+          "avversario": "Milan",
+          "dove": "casa",
+          "tipo": "scontro-diretto",
+          "tipologia_label": "⚔️ Scontro Diretto",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "Scontro diretto col Milan — Juve ha 2/3 risultati possibili a favore"
+        },
+        {
+          "giornata": 37,
+          "avversario": "Lazio",
+          "dove": "casa",
+          "tipo": "da-vincere",
+          "tipologia_label": "✅ Da vincere",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "Gara abbordabile in casa — da portare a casa"
+        },
+        {
+          "giornata": 38,
+          "avversario": "Roma",
+          "dove": "casa",
+          "tipo": "spareggio",
+          "tipologia_label": "🔥 Spareggio finale",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "Scontro diretto decisivo contro la Roma — potrebbe essere spareggio Champions"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Roma",
+      "manager": "Alex Beltrame",
+      "punti": 53,
+      "posizione": 4,
+      "colore": "#8B0000",
+      "logo": "images/roma.png",
+      "calendario": [
+        {
+          "giornata": 36,
+          "avversario": "Lazio",
+          "dove": "trasferta",
+          "tipo": "derby",
+          "tipologia_label": "🏙️ Derby di Roma",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "Derby in trasferta — imprevedibile per definizione"
+        },
+        {
+          "giornata": 37,
+          "avversario": "Inter",
+          "dove": "casa",
+          "tipo": "difficile",
+          "tipologia_label": "😬 Gara difficile",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "L'Inter ha già vinto lo scudetto, potrebbe tenere il passo comunque"
+        },
+        {
+          "giornata": 38,
+          "avversario": "Juventus",
+          "dove": "trasferta",
+          "tipo": "spareggio",
+          "tipologia_label": "🔥 Spareggio finale",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "Spareggio in trasferta — tutto o niente per la Champions"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Napoli",
+      "manager": "Mattia Beltrame",
+      "punti": 53,
+      "posizione": 5,
+      "colore": "#1E90FF",
+      "logo": "images/napoli.png",
+      "calendario": [
+        {
+          "giornata": 36,
+          "avversario": "Bologna",
+          "dove": "trasferta",
+          "tipo": "da-vincere",
+          "tipologia_label": "✅ Da vincere",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "Trasferta a Bologna — gara da portare a casa assolutamente"
+        },
+        {
+          "giornata": 37,
+          "avversario": "Atalanta",
+          "dove": "casa",
+          "tipo": "incerto",
+          "tipologia_label": "⚠️ Incerto",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "L'Atalanta fanta potrebbe aver già raggiunto il 2° posto — gara gestibile"
+        },
+        {
+          "giornata": 38,
+          "avversario": "Inter",
+          "dove": "trasferta",
+          "tipo": "difficile",
+          "tipologia_label": "😬 Gara difficile",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "L'Inter potrebbe aver già vinto lo scudetto fanta — trasferta comunque tosta"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Milan",
+      "manager": "Lorenzo Moro",
+      "punti": 49,
+      "posizione": 6,
+      "colore": "#AC0000",
+      "logo": "images/milan.png",
+      "calendario": [
+        {
+          "giornata": 36,
+          "avversario": "Juventus",
+          "dove": "trasferta",
+          "tipo": "scontro-diretto",
+          "tipologia_label": "⚔️ Scontro Diretto",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "Deve vincere per accorciare a 52 — le altre sono a 53 ma giocano lo stesso"
+        },
+        {
+          "giornata": 37,
+          "avversario": "Bologna",
+          "dove": "trasferta",
+          "tipo": "da-vincere",
+          "tipologia_label": "✅ Da vincere",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "Trasferta abbordabile — fondamentale portare i 3 punti"
+        },
+        {
+          "giornata": 38,
+          "avversario": "Lazio",
+          "dove": "trasferta",
+          "tipo": "da-vincere",
+          "tipologia_label": "✅ Da vincere",
+          "risultato": null,
+          "puntiFantaOttenuti": null,
+          "note": "La Lazio ha poco da chiedere — ma è pur sempre una trasferta"
+        }
+      ]
+    }
+  ]
+}
