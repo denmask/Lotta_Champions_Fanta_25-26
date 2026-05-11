@@ -7,7 +7,7 @@
       "name": "Juventus",
       "manager": "Denis Mascherin",
       "punti": 53,
-      "posizione": 3,
+      "posizione": 4,
       "colore": "#000000",
       "logo": "images/juventus.png",
       "calendario": [
@@ -48,7 +48,7 @@
       "name": "Roma",
       "manager": "Alex Beltrame",
       "punti": 53,
-      "posizione": 4,
+      "posizione": 3,
       "colore": "#8B0000",
       "logo": "images/roma.png",
       "calendario": [
