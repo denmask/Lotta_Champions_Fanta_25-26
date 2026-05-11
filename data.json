@@ -17,7 +17,7 @@
           "dove": "casa",
           "tipo": "scontro-diretto",
           "tipologia_label": "⚔️ Scontro Diretto",
-          "risultato": null,
+          "risultato": "2-2",
           "puntiFantaOttenuti": null,
           "note": "Scontro diretto col Milan — Juve ha 2/3 risultati possibili a favore"
         },
@@ -58,7 +58,7 @@
           "dove": "trasferta",
           "tipo": "derby",
           "tipologia_label": "🏙️ Derby di Roma",
-          "risultato": null,
+          "risultato": "0-3",
           "puntiFantaOttenuti": null,
           "note": "Derby in trasferta — imprevedibile per definizione"
         },
@@ -99,7 +99,7 @@
           "dove": "trasferta",
           "tipo": "da-vincere",
           "tipologia_label": "✅ Da vincere",
-          "risultato": null,
+          "risultato": "1-0",
           "puntiFantaOttenuti": null,
           "note": "Trasferta a Bologna — gara da portare a casa assolutamente"
         },
@@ -140,7 +140,7 @@
           "dove": "trasferta",
           "tipo": "scontro-diretto",
           "tipologia_label": "⚔️ Scontro Diretto",
-          "risultato": null,
+          "risultato": "2-2",
           "puntiFantaOttenuti": null,
           "note": "Deve vincere per accorciare a 52 — le altre sono a 53 ma giocano lo stesso"
         },
