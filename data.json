@@ -6,8 +6,8 @@
       "id": 1,
       "name": "Juventus",
       "manager": "Denis Mascherin",
-      "punti": 53,
-      "posizione": 4,
+      "punti": 54,
+      "posizione": 5,
       "colore": "#000000",
       "logo": "images/juventus.png",
       "calendario": [
@@ -18,7 +18,7 @@
           "tipo": "scontro-diretto",
           "tipologia_label": "⚔️ Scontro Diretto",
           "risultato": "2-2",
-          "puntiFantaOttenuti": null,
+          "puntiFantaOttenuti": 1,
           "note": "Scontro diretto col Milan — Juve ha 2/3 risultati possibili a favore"
         },
         {
@@ -27,8 +27,8 @@
           "dove": "casa",
           "tipo": "da-vincere",
           "tipologia_label": "✅ Da vincere",
-          "risultato": null,
-          "puntiFantaOttenuti": null,
+          "risultato": "0-1",
+          "puntiFantaOttenuti": 0,
           "note": "Gara abbordabile in casa — da portare a casa"
         },
         {
@@ -47,7 +47,7 @@
       "id": 2,
       "name": "Roma",
       "manager": "Alex Beltrame",
-      "punti": 53,
+      "punti": 59,
       "posizione": 3,
       "colore": "#8B0000",
       "logo": "images/roma.png",
@@ -59,7 +59,7 @@
           "tipo": "derby",
           "tipologia_label": "🏙️ Derby di Roma",
           "risultato": "0-3",
-          "puntiFantaOttenuti": null,
+          "puntiFantaOttenuti": 3,
           "note": "Derby in trasferta — imprevedibile per definizione"
         },
         {
@@ -68,8 +68,8 @@
           "dove": "casa",
           "tipo": "difficile",
           "tipologia_label": "😬 Gara difficile",
-          "risultato": null,
-          "puntiFantaOttenuti": null,
+          "risultato": "5-1",
+          "puntiFantaOttenuti": 3,
           "note": "L'Inter ha già vinto lo scudetto, potrebbe tenere il passo comunque"
         },
         {
@@ -88,8 +88,8 @@
       "id": 3,
       "name": "Napoli",
       "manager": "Mattia Beltrame",
-      "punti": 53,
-      "posizione": 5,
+      "punti": 56,
+      "posizione": 4,
       "colore": "#1E90FF",
       "logo": "images/napoli.png",
       "calendario": [
@@ -99,8 +99,8 @@
           "dove": "trasferta",
           "tipo": "da-vincere",
           "tipologia_label": "✅ Da vincere",
-          "risultato": "1-0",
-          "puntiFantaOttenuti": null,
+          "risultato": "3-0",
+          "puntiFantaOttenuti": 0,
           "note": "Trasferta a Bologna — gara da portare a casa assolutamente"
         },
         {
@@ -109,8 +109,8 @@
           "dove": "casa",
           "tipo": "incerto",
           "tipologia_label": "⚠️ Incerto",
-          "risultato": null,
-          "puntiFantaOttenuti": null,
+          "risultato": "3-0",
+          "puntiFantaOttenuti": 3,
           "note": "L'Atalanta fanta potrebbe aver già raggiunto il 2° posto — gara gestibile"
         },
         {
@@ -129,7 +129,7 @@
       "id": 4,
       "name": "Milan",
       "manager": "Lorenzo Moro",
-      "punti": 49,
+      "punti": 53,
       "posizione": 6,
       "colore": "#AC0000",
       "logo": "images/milan.png",
@@ -141,7 +141,7 @@
           "tipo": "scontro-diretto",
           "tipologia_label": "⚔️ Scontro Diretto",
           "risultato": "2-2",
-          "puntiFantaOttenuti": null,
+          "puntiFantaOttenuti": 1,
           "note": "Deve vincere per accorciare a 52 — le altre sono a 53 ma giocano lo stesso"
         },
         {
@@ -150,8 +150,8 @@
           "dove": "trasferta",
           "tipo": "da-vincere",
           "tipologia_label": "✅ Da vincere",
-          "risultato": null,
-          "puntiFantaOttenuti": null,
+          "risultato": "0-3",
+          "puntiFantaOttenuti": 3,
           "note": "Trasferta abbordabile — fondamentale portare i 3 punti"
         },
         {
